@@ -17,6 +17,9 @@
       },
       "api": {
         "gcohackmt23": {}
+      },
+      "storage": {
+        "speedata": {}
       }
     }
   }

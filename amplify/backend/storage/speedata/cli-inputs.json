@@ -1,0 +1,14 @@
+{
+  "resourceName": "speedata",
+  "policyUUID": "9f5bf63d",
+  "bucketName": "gcohackmt23307695ed33f64ea7b0b04a8e382ddb1a",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}
