@@ -1,24 +1,205 @@
-import logo from "./logo.svg";
+import React, { useState, useEffect } from "react";
+import "./App.css";
 import "@aws-amplify/ui-react/styles.css";
+import { API } from "aws-amplify";
 import {
-  withAuthenticator,
   Button,
+  Flex,
   Heading,
-  Image,
+  Text,
+  TextField,
   View,
-  Card,
+  withAuthenticator,
 } from "@aws-amplify/ui-react";
+import { listNotes, listSpees } from "./graphql/queries";
+import {
+  createNote as createNoteMutation,
+  deleteNote as deleteNoteMutation,
+  createSpee as createSpeeMutation,
+  deleteSpee as deleteSpeeMutation,
+} from "./graphql/mutations";
+import userEvent from "@testing-library/user-event";
 
-function App({ signOut }) {
+const App = ({ signOut, user }) => {
+  const [notes, setNotes] = useState([]);
+  const [spees, setSpees] = useState([]);
+
+  useEffect(() => {
+    fetchNotes();
+    fetchSpees();
+  }, []);
+
+  async function fetchNotes() {
+    const apiData = await API.graphql({ query: listNotes });
+    const notesFromAPI = apiData.data.listNotes.items;
+    setNotes(notesFromAPI);
+  }
+
+  async function createNote(event) {
+    event.preventDefault();
+    const form = new FormData(event.target);
+    const data = {
+      name: form.get("name"),
+      description: form.get("description"),
+    };
+    await API.graphql({
+      query: createNoteMutation,
+      variables: { input: data },
+    });
+    fetchNotes();
+    event.target.reset();
+  }
+
+  async function deleteNote({ id }) {
+    const newNotes = notes.filter((note) => note.id !== id);
+    setNotes(newNotes);
+    await API.graphql({
+      query: deleteNoteMutation,
+      variables: { input: { id } },
+    });
+  }
+
+
+  //SPONSOREE
+  async function fetchSpees() {
+    const apiData = await API.graphql({ query: listSpees });
+    const speesFromAPI = apiData.data.listSpees.items;
+    setSpees(speesFromAPI);
+  }
+
+  async function createSpee(event) {
+    event.preventDefault();
+    const form = new FormData(event.target);
+    const data = {
+      name: form.get("spee_name"),
+      bio: form.get("spee_bio"),
+      age: form.get("spee_age"),
+      update_user: user.username,
+    };
+    await API.graphql({
+      query: createSpeeMutation,
+      variables: { input: data },
+    });
+    fetchSpees();
+    event.target.reset();
+  }
+
+  async function deleteSpee({ id }) {
+    const newSpees = spees.filter((spee) => spee.id !== id);
+    setSpees(newSpees);
+    await API.graphql({
+      query: deleteSpeeMutation,
+      variables: { input: { id } },
+    });
+  }
+
+
+  //END ABH TESTING
+
   return (
     <View className="App">
-      <Card>
-        <Image src={logo} className="App-logo" alt="logo" />
-        <Heading level={1}>We now have Auth!</Heading>
-      </Card>
+      <Heading level={1}>Sponser Updates</Heading>
+      <Heading level={2}>Hi {user.username}</Heading>
+
+
+      <View as="form" margin="3rem 0" onSubmit={createSpee}>
+        <Flex direction="row" justifyContent="center">
+          <TextField
+            name="spee_name"
+            placeholder="Sponsoree Name"
+            label="Sponsoree Name"
+            labelHidden
+            variation="quiet"
+            required
+          />
+          <TextField
+            name="spee_bio"
+            placeholder="Sponsoree Bio"
+            label="Sponsoree Bio"
+            labelHidden
+            variation="quiet"
+            required
+          />
+          <TextField
+            name="spee_age"
+            placeholder="Sponsoree Age"
+            label="Sponsoree Age"
+            labelHidden
+            variation="quiet"
+            required
+          />
+          <Button type="submit" variation="primary">
+            Create Sponsoree
+          </Button>
+        </Flex>
+      </View>
+      <Heading level={2}>Current Sponsorees</Heading>
+      <View margin="3rem 0">
+        {spees.map((spee) => (
+          <Flex
+            key={spee.id || spee.name}
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Text as="strong" fontWeight={700}>
+              {spee.name} age {spee.age}
+            </Text>
+            <Text as="span">{spee.bio}</Text>
+            <Text fontStyle={'italic'}>managed by {spee.update_user}</Text>
+            <Button variation="link" onClick={() => deleteSpee(spee)}>
+              Delete Sponsoree
+            </Button>
+          </Flex>
+        ))}
+      </View>
+
+
+      <View as="form" margin="3rem 0" onSubmit={createNote}>
+        <Flex direction="row" justifyContent="center">
+          <TextField
+            name="name"
+            placeholder="Update Name"
+            label="Update Name"
+            labelHidden
+            variation="quiet"
+            required
+          />
+          <TextField
+            name="description"
+            placeholder="Update Description"
+            label="Update Description"
+            labelHidden
+            variation="quiet"
+            required
+          />
+          <Button type="submit" variation="primary">
+            Create Note
+          </Button>
+        </Flex>
+      </View>
+      <Heading level={2}>Current Updates</Heading>
+      <View margin="3rem 0">
+        {notes.map((note) => (
+          <Flex
+            key={note.id || note.name}
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Text as="strong" fontWeight={700}>
+              {note.name}
+            </Text>
+            <Text as="span">{note.description}</Text>
+            <Button variation="link" onClick={() => deleteNote(note)}>
+              Delete update
+            </Button>
+          </Flex>
+        ))}
+      </View>
       <Button onClick={signOut}>Sign Out</Button>
     </View>
   );
-}
+};
 
 export default withAuthenticator(App);

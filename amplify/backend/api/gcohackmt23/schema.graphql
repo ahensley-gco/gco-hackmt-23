@@ -1,0 +1,27 @@
+type Note @model @auth(rules: [ { allow: public } ] ){
+  id: ID!
+  name: String!
+  description: String
+}
+
+type Spee @model @auth(rules: [ { allow: public } ] ){
+  id: ID!
+  name: String!
+  bio: String
+  age: Int
+  update_user: String
+}
+
+type UserSpeeXref @model @auth(rules: [ { allow: public } ] ){
+  id: ID!
+  spee_id: ID!
+  sponser_date: AWSDate
+  sponser_user: Int
+}
+
+type Update @model @auth(rules: [ { allow: public } ] ){
+  id: ID!
+  name: String!
+  description: String
+  spee_id: ID!
+}
