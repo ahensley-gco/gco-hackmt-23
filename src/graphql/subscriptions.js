@@ -8,6 +8,7 @@ export const onCreateNote = /* GraphQL */ `
       name
       description
       image
+      spee_id
       createdAt
       updatedAt
     }
@@ -20,6 +21,7 @@ export const onUpdateNote = /* GraphQL */ `
       name
       description
       image
+      spee_id
       createdAt
       updatedAt
     }
@@ -32,6 +34,7 @@ export const onDeleteNote = /* GraphQL */ `
       name
       description
       image
+      spee_id
       createdAt
       updatedAt
     }
@@ -45,6 +48,18 @@ export const onCreateSpee = /* GraphQL */ `
       bio
       age
       update_user
+      notes {
+        items {
+          id
+          name
+          description
+          image
+          spee_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -58,6 +73,18 @@ export const onUpdateSpee = /* GraphQL */ `
       bio
       age
       update_user
+      notes {
+        items {
+          id
+          name
+          description
+          image
+          spee_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -71,6 +98,18 @@ export const onDeleteSpee = /* GraphQL */ `
       bio
       age
       update_user
+      notes {
+        items {
+          id
+          name
+          description
+          image
+          spee_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -83,8 +122,9 @@ export const onCreateUserSpeeXref = /* GraphQL */ `
     onCreateUserSpeeXref(filter: $filter) {
       id
       spee_id
-      sponser_date
-      sponser_user
+      sponsor_date
+      sponsor_user
+      created_by
       createdAt
       updatedAt
     }
@@ -97,8 +137,9 @@ export const onUpdateUserSpeeXref = /* GraphQL */ `
     onUpdateUserSpeeXref(filter: $filter) {
       id
       spee_id
-      sponser_date
-      sponser_user
+      sponsor_date
+      sponsor_user
+      created_by
       createdAt
       updatedAt
     }
@@ -111,44 +152,9 @@ export const onDeleteUserSpeeXref = /* GraphQL */ `
     onDeleteUserSpeeXref(filter: $filter) {
       id
       spee_id
-      sponser_date
-      sponser_user
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateUpdate = /* GraphQL */ `
-  subscription OnCreateUpdate($filter: ModelSubscriptionUpdateFilterInput) {
-    onCreateUpdate(filter: $filter) {
-      id
-      name
-      description
-      spee_id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateUpdate = /* GraphQL */ `
-  subscription OnUpdateUpdate($filter: ModelSubscriptionUpdateFilterInput) {
-    onUpdateUpdate(filter: $filter) {
-      id
-      name
-      description
-      spee_id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteUpdate = /* GraphQL */ `
-  subscription OnDeleteUpdate($filter: ModelSubscriptionUpdateFilterInput) {
-    onDeleteUpdate(filter: $filter) {
-      id
-      name
-      description
-      spee_id
+      sponsor_date
+      sponsor_user
+      created_by
       createdAt
       updatedAt
     }

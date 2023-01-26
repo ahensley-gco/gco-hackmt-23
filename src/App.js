@@ -1,3 +1,8 @@
+// AUDRA HENSLEY 01/20/2023
+//spee = sponsoree as managed by update user
+//spee2 = sponsoree to be viewed by sponsor
+//note = updates for the sponsor to see
+
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import "@aws-amplify/ui-react/styles.css";
@@ -18,12 +23,16 @@ import {
   deleteNote as deleteNoteMutation,
   createSpee as createSpeeMutation,
   deleteSpee as deleteSpeeMutation,
+  createUserSpeeXref as createUserSpeeXrefMutation,
 } from "./graphql/mutations";
 import userEvent from "@testing-library/user-event";
 
 const App = ({ signOut, user }) => {
   const [notes, setNotes] = useState([]);
   const [spees, setSpees] = useState([]);
+  const [displayCreateSponsForm, setDisplayCreateSponsForm] = useState(false);
+  const [displayViewSpons, setDisplayViewSpons] = useState(false);
+
 
   useEffect(() => {
     fetchNotes();
@@ -76,7 +85,7 @@ const App = ({ signOut, user }) => {
   //SPONSOREE
   async function fetchSpees() {
     const apiData = await API.graphql({ query: listSpees });
-    const speesFromAPI = apiData.data.listSpees.items;
+    const speesFromAPI = apiData.data.listSpees.items.filter((spee) => spee.update_user == user.username);
     setSpees(speesFromAPI);
   }
 
@@ -106,12 +115,30 @@ const App = ({ signOut, user }) => {
     });
   }
 
+    //createUserSpeeXrefMutation
+
+  async function createUserSpeeXref(event) {
+    event.preventDefault();
+    const form = new FormData(event.target);
+    const data = {
+      sponsor_user: form.get("sponsor_user"),
+      spee_id: form.get("spee_id"),
+      created_by: user.username,
+      sponsor_date: new Date().toISOString().slice(0, 10),
+    };
+    await API.graphql({
+      query: createUserSpeeXrefMutation,
+      variables: { input: data },
+    });
+    fetchSpees();
+    event.target.reset();
+  }
 
   //END ABH TESTING
 
   return (
     <View className="App">
-      <Heading level={1}>Sponser Updates</Heading>
+      <Heading level={1}>Sponsor Updates</Heading>
       <Heading level={2}>Hi {user.username}</Heading>
 
 
@@ -146,7 +173,7 @@ const App = ({ signOut, user }) => {
           </Button>
         </Flex>
       </View>
-      <Heading level={2}>Current Sponsorees</Heading>
+      <Heading level={3}>Sponsorees You Update</Heading>
       <View margin="3rem 0">
         {spees.map((spee) => (
           <Flex
@@ -163,6 +190,46 @@ const App = ({ signOut, user }) => {
             <Button variation="link" onClick={() => deleteSpee(spee)}>
               Delete Sponsoree
             </Button>
+            <Button variation="link" onClick={() => setDisplayViewSpons(!displayViewSpons)}>
+              View Sponsors
+            </Button>
+              {displayViewSpons ?
+                (
+                  <Text>View Sponsors er</Text>
+                ) : null
+              }
+            <Button variation="link" onClick={() => setDisplayCreateSponsForm(!displayCreateSponsForm)}>
+              Add Sponsor
+            </Button>
+              {displayCreateSponsForm ?
+                (
+
+                  <View as="form" margin="3rem 0" onSubmit={createUserSpeeXref}>
+                            <Flex direction="row" justifyContent="center">
+                            <TextField
+                                name="spee_id"
+                                defaultValue={spee.id}
+                                label="Sponsoree ID"
+                                labelHidden
+                                variation="quiet"
+                                required
+                                type="hidden"
+                              />
+                              <TextField
+                                name="sponsor_user"
+                                placeholder="user.name"
+                                label="Sponsor Username"
+                                labelHidden
+                                variation="quiet"
+                                required
+                              />
+                              <Button type="submit" variation="primary">
+                                Add
+                              </Button>
+                            </Flex>
+                  </View>
+                ) : null
+              }
           </Flex>
         ))}
       </View>
@@ -193,7 +260,7 @@ const App = ({ signOut, user }) => {
             style={{ alignSelf: "end" }}
           />
           <Button type="submit" variation="primary">
-            Create Note
+            Create Update
           </Button>
         </Flex>
       </View>

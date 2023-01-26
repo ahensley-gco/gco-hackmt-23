@@ -11,6 +11,7 @@ export const createNote = /* GraphQL */ `
       name
       description
       image
+      spee_id
       createdAt
       updatedAt
     }
@@ -26,6 +27,7 @@ export const updateNote = /* GraphQL */ `
       name
       description
       image
+      spee_id
       createdAt
       updatedAt
     }
@@ -41,6 +43,7 @@ export const deleteNote = /* GraphQL */ `
       name
       description
       image
+      spee_id
       createdAt
       updatedAt
     }
@@ -57,6 +60,18 @@ export const createSpee = /* GraphQL */ `
       bio
       age
       update_user
+      notes {
+        items {
+          id
+          name
+          description
+          image
+          spee_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -73,6 +88,18 @@ export const updateSpee = /* GraphQL */ `
       bio
       age
       update_user
+      notes {
+        items {
+          id
+          name
+          description
+          image
+          spee_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -89,6 +116,18 @@ export const deleteSpee = /* GraphQL */ `
       bio
       age
       update_user
+      notes {
+        items {
+          id
+          name
+          description
+          image
+          spee_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -102,8 +141,9 @@ export const createUserSpeeXref = /* GraphQL */ `
     createUserSpeeXref(input: $input, condition: $condition) {
       id
       spee_id
-      sponser_date
-      sponser_user
+      sponsor_date
+      sponsor_user
+      created_by
       createdAt
       updatedAt
     }
@@ -117,8 +157,9 @@ export const updateUserSpeeXref = /* GraphQL */ `
     updateUserSpeeXref(input: $input, condition: $condition) {
       id
       spee_id
-      sponser_date
-      sponser_user
+      sponsor_date
+      sponsor_user
+      created_by
       createdAt
       updatedAt
     }
@@ -132,53 +173,9 @@ export const deleteUserSpeeXref = /* GraphQL */ `
     deleteUserSpeeXref(input: $input, condition: $condition) {
       id
       spee_id
-      sponser_date
-      sponser_user
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createUpdate = /* GraphQL */ `
-  mutation CreateUpdate(
-    $input: CreateUpdateInput!
-    $condition: ModelUpdateConditionInput
-  ) {
-    createUpdate(input: $input, condition: $condition) {
-      id
-      name
-      description
-      spee_id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateUpdate = /* GraphQL */ `
-  mutation UpdateUpdate(
-    $input: UpdateUpdateInput!
-    $condition: ModelUpdateConditionInput
-  ) {
-    updateUpdate(input: $input, condition: $condition) {
-      id
-      name
-      description
-      spee_id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteUpdate = /* GraphQL */ `
-  mutation DeleteUpdate(
-    $input: DeleteUpdateInput!
-    $condition: ModelUpdateConditionInput
-  ) {
-    deleteUpdate(input: $input, condition: $condition) {
-      id
-      name
-      description
-      spee_id
+      sponsor_date
+      sponsor_user
+      created_by
       createdAt
       updatedAt
     }

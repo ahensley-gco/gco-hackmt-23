@@ -8,6 +8,7 @@ export const getNote = /* GraphQL */ `
       name
       description
       image
+      spee_id
       createdAt
       updatedAt
     }
@@ -25,6 +26,7 @@ export const listNotes = /* GraphQL */ `
         name
         description
         image
+        spee_id
         createdAt
         updatedAt
       }
@@ -40,6 +42,18 @@ export const getSpee = /* GraphQL */ `
       bio
       age
       update_user
+      notes {
+        items {
+          id
+          name
+          description
+          image
+          spee_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -58,6 +72,9 @@ export const listSpees = /* GraphQL */ `
         bio
         age
         update_user
+        notes {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -70,8 +87,9 @@ export const getUserSpeeXref = /* GraphQL */ `
     getUserSpeeXref(id: $id) {
       id
       spee_id
-      sponser_date
-      sponser_user
+      sponsor_date
+      sponsor_user
+      created_by
       createdAt
       updatedAt
     }
@@ -87,8 +105,9 @@ export const listUserSpeeXrefs = /* GraphQL */ `
       items {
         id
         spee_id
-        sponser_date
-        sponser_user
+        sponsor_date
+        sponsor_user
+        created_by
         createdAt
         updatedAt
       }
@@ -96,29 +115,28 @@ export const listUserSpeeXrefs = /* GraphQL */ `
     }
   }
 `;
-export const getUpdate = /* GraphQL */ `
-  query GetUpdate($id: ID!) {
-    getUpdate(id: $id) {
-      id
-      name
-      description
-      spee_id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listUpdates = /* GraphQL */ `
-  query ListUpdates(
-    $filter: ModelUpdateFilterInput
+export const notesBySpee_idAndName = /* GraphQL */ `
+  query NotesBySpee_idAndName(
+    $spee_id: ID!
+    $name: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelNoteFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listUpdates(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    notesBySpee_idAndName(
+      spee_id: $spee_id
+      name: $name
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
       items {
         id
         name
         description
+        image
         spee_id
         createdAt
         updatedAt
