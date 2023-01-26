@@ -60,6 +60,18 @@ export const onCreateSpee = /* GraphQL */ `
         }
         nextToken
       }
+      user_spee_xrefs {
+        items {
+          id
+          spee_id
+          sponsor_date
+          sponsor_user
+          created_by
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -85,6 +97,18 @@ export const onUpdateSpee = /* GraphQL */ `
         }
         nextToken
       }
+      user_spee_xrefs {
+        items {
+          id
+          spee_id
+          sponsor_date
+          sponsor_user
+          created_by
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -105,6 +129,18 @@ export const onDeleteSpee = /* GraphQL */ `
           description
           image
           spee_id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      user_spee_xrefs {
+        items {
+          id
+          spee_id
+          sponsor_date
+          sponsor_user
+          created_by
           createdAt
           updatedAt
         }

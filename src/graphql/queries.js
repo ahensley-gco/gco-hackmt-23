@@ -54,6 +54,18 @@ export const getSpee = /* GraphQL */ `
         }
         nextToken
       }
+      user_spee_xrefs {
+        items {
+          id
+          spee_id
+          sponsor_date
+          sponsor_user
+          created_by
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -73,6 +85,9 @@ export const listSpees = /* GraphQL */ `
         age
         update_user
         notes {
+          nextToken
+        }
+        user_spee_xrefs {
           nextToken
         }
         createdAt
@@ -138,6 +153,36 @@ export const notesBySpee_idAndName = /* GraphQL */ `
         description
         image
         spee_id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const userSpeeXrefsBySpee_idAndSponsor_user = /* GraphQL */ `
+  query UserSpeeXrefsBySpee_idAndSponsor_user(
+    $spee_id: ID!
+    $sponsor_user: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelUserSpeeXrefFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    userSpeeXrefsBySpee_idAndSponsor_user(
+      spee_id: $spee_id
+      sponsor_user: $sponsor_user
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        spee_id
+        sponsor_date
+        sponsor_user
+        created_by
         createdAt
         updatedAt
       }

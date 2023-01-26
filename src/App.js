@@ -59,6 +59,7 @@ const App = ({ signOut, user }) => {
     const form = new FormData(event.target);
     const image = form.get("image");
     const data = {
+      spee_id: form.get("spee_id"),
       name: form.get("name"),
       description: form.get("description"),
       image: image.name,
@@ -138,8 +139,8 @@ const App = ({ signOut, user }) => {
 
   return (
     <View className="App">
-      <Heading level={1}>Sponsor Updates</Heading>
-      <Heading level={2}>Hi {user.username}</Heading>
+      <Heading level={1}>Sponsors In The Loop </Heading>
+      <Heading level={3}>Hi {user.username}</Heading>
 
 
       <View as="form" margin="3rem 0" onSubmit={createSpee}>
@@ -173,6 +174,25 @@ const App = ({ signOut, user }) => {
           </Button>
         </Flex>
       </View>
+
+      <Heading level={3}>Your Sponsorees</Heading>
+      <View margin="3rem 0">
+        {spees.map((spee) => (
+          <Flex
+            key={spee.id || spee.name}
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Text as="strong" fontWeight={700}>
+              {spee.name} age {spee.age}
+            </Text>
+            <Text as="span">{spee.bio}</Text>
+            <Text fontStyle={'italic'}>managed by {spee.update_user}</Text>
+          </Flex>
+        ))}
+      </View>
+
       <Heading level={3}>Sponsorees You Update</Heading>
       <View margin="3rem 0">
         {spees.map((spee) => (
@@ -181,6 +201,7 @@ const App = ({ signOut, user }) => {
             direction="row"
             justifyContent="center"
             alignItems="center"
+            wrap={"wrap"}
           >
             <Text as="strong" fontWeight={700}>
               {spee.name} age {spee.age}
@@ -230,13 +251,18 @@ const App = ({ signOut, user }) => {
                   </View>
                 ) : null
               }
-          </Flex>
-        ))}
-      </View>
-
-
+      
       <View as="form" margin="3rem 0" onSubmit={createNote}>
         <Flex direction="row" justifyContent="center">
+        <TextField
+            name="spee_id"
+            defaultValue={spee.id}
+            label="Sponsoree ID"
+            labelHidden
+            variation="quiet"
+            required
+            type="hidden"
+          />
           <TextField
             name="name"
             placeholder="Update Name"
@@ -264,6 +290,11 @@ const App = ({ signOut, user }) => {
           </Button>
         </Flex>
       </View>
+
+          </Flex>
+        ))}
+      </View>
+
       <Heading level={2}>Current Updates</Heading>
       <View margin="3rem 0">
         {notes.map((note) => (

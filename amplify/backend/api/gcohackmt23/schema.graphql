@@ -13,11 +13,12 @@ type Spee @model @auth(rules: [ { allow: public } ] ){
   age: Int
   update_user: String
   notes: [Note] @hasMany(indexName: "bySpee", fields: ["id"])
+  user_spee_xrefs: [UserSpeeXref] @hasMany(indexName: "bySpee", fields: ["id"])
 }
 
 type UserSpeeXref @model @auth(rules: [ { allow: public } ] ){
   id: ID!
-  spee_id: ID!
+  spee_id: ID! @index(name: "bySpee", sortKeyFields: ["sponsor_user"])
   sponsor_date: AWSDate
   sponsor_user: String!
   created_by: String
