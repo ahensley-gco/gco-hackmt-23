@@ -12,6 +12,8 @@ import {
     Menu,
     MenuItem,
     MenuButton,
+    Expander,
+    ExpanderItem,
   } from "@aws-amplify/ui-react";
 
 function AdminMenu() {
@@ -36,6 +38,16 @@ async function fetchUsers() {
             {isAdmin ?
                 (
                 <View>
+                    <Expander>
+                        <ExpanderItem title="View Sponsorees you manage" value="expander-1">
+                            first 
+                        </ExpanderItem>
+                        <ExpanderItem title="Add a Sponsoree" value="expander-2">
+                            FORM GOES HERE
+                        </ExpanderItem>
+                    </Expander>
+
+
                      <Menu 
                         trigger={
                             <MenuButton variation="primary" size="large" width="150%">
