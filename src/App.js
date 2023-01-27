@@ -2,7 +2,6 @@
 //spee = sponsoree as managed by update user
 //spee2 = sponsoree to be viewed by sponsor
 //note = updates for the sponsor to see
-
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import "@aws-amplify/ui-react/styles.css";
@@ -26,12 +25,15 @@ import {
   createUserSpeeXref as createUserSpeeXrefMutation,
 } from "./graphql/mutations";
 import userEvent from "@testing-library/user-event";
+import UserGroup from "./components/usergroup";
+import AdminMenu from "./components/adminmenu";
 
 const App = ({ signOut, user }) => {
   const [notes, setNotes] = useState([]);
   const [spees, setSpees] = useState([]);
   const [displayCreateSponsForm, setDisplayCreateSponsForm] = useState(false);
   const [displayViewSpons, setDisplayViewSpons] = useState(false);
+
 
 
   useEffect(() => {
@@ -141,7 +143,10 @@ const App = ({ signOut, user }) => {
     <View className="App">
       <Heading level={1}>Sponsors In The Loop </Heading>
       <Heading level={3}>Hi {user.username}</Heading>
-
+      <UserGroup />
+      <AdminMenu />
+      
+      
 
       <View as="form" margin="3rem 0" onSubmit={createSpee}>
         <Flex direction="row" justifyContent="center">
@@ -311,7 +316,7 @@ const App = ({ signOut, user }) => {
             {note.image && (
               <Image
                 src={note.image}
-                alt={`visual aid for ${notes.name}`}
+                alt={`visual aid for ${note.name}`}
                 style={{ width: 400 }}
               />
             )}
