@@ -5,23 +5,29 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps } from "@aws-amplify/ui-react";
+import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
-export declare type CreateSponsorXrefInputValues = {};
-export declare type CreateSponsorXrefValidationValues = {};
+export declare type CreateSponsorXrefInputValues = {
+    Field0?: string;
+};
+export declare type CreateSponsorXrefValidationValues = {
+    Field0?: ValidationFunction<string>;
+};
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type CreateSponsorXrefOverridesProps = {
     CreateSponsorXrefGrid?: PrimitiveOverrideProps<GridProps>;
+    Field0?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type CreateSponsorXrefProps = React.PropsWithChildren<{
     overrides?: CreateSponsorXrefOverridesProps | undefined | null;
 } & {
     onSubmit: (fields: CreateSponsorXrefInputValues) => void;
+    onCancel?: () => void;
     onChange?: (fields: CreateSponsorXrefInputValues) => CreateSponsorXrefInputValues;
     onValidate?: CreateSponsorXrefValidationValues;
 } & React.CSSProperties>;

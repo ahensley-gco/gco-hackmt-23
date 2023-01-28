@@ -1,6 +1,84 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateCharity = /* GraphQL */ `
+  subscription OnCreateCharity($filter: ModelSubscriptionCharityFilterInput) {
+    onCreateCharity(filter: $filter) {
+      id
+      name
+      description
+      spee_id {
+        items {
+          id
+          name
+          bio
+          age
+          update_user
+          charityID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      charity_user
+      charity_date
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateCharity = /* GraphQL */ `
+  subscription OnUpdateCharity($filter: ModelSubscriptionCharityFilterInput) {
+    onUpdateCharity(filter: $filter) {
+      id
+      name
+      description
+      spee_id {
+        items {
+          id
+          name
+          bio
+          age
+          update_user
+          charityID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      charity_user
+      charity_date
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteCharity = /* GraphQL */ `
+  subscription OnDeleteCharity($filter: ModelSubscriptionCharityFilterInput) {
+    onDeleteCharity(filter: $filter) {
+      id
+      name
+      description
+      spee_id {
+        items {
+          id
+          name
+          bio
+          age
+          update_user
+          charityID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      charity_user
+      charity_date
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateNote = /* GraphQL */ `
   subscription OnCreateNote($filter: ModelSubscriptionNoteFilterInput) {
     onCreateNote(filter: $filter) {
@@ -9,6 +87,7 @@ export const onCreateNote = /* GraphQL */ `
       description
       image
       spee_id
+      note_date_time
       createdAt
       updatedAt
     }
@@ -22,6 +101,7 @@ export const onUpdateNote = /* GraphQL */ `
       description
       image
       spee_id
+      note_date_time
       createdAt
       updatedAt
     }
@@ -35,6 +115,7 @@ export const onDeleteNote = /* GraphQL */ `
       description
       image
       spee_id
+      note_date_time
       createdAt
       updatedAt
     }
@@ -55,6 +136,7 @@ export const onCreateSpee = /* GraphQL */ `
           description
           image
           spee_id
+          note_date_time
           createdAt
           updatedAt
         }
@@ -72,6 +154,7 @@ export const onCreateSpee = /* GraphQL */ `
         }
         nextToken
       }
+      charityID
       createdAt
       updatedAt
     }
@@ -92,6 +175,7 @@ export const onUpdateSpee = /* GraphQL */ `
           description
           image
           spee_id
+          note_date_time
           createdAt
           updatedAt
         }
@@ -109,6 +193,7 @@ export const onUpdateSpee = /* GraphQL */ `
         }
         nextToken
       }
+      charityID
       createdAt
       updatedAt
     }
@@ -129,6 +214,7 @@ export const onDeleteSpee = /* GraphQL */ `
           description
           image
           spee_id
+          note_date_time
           createdAt
           updatedAt
         }
@@ -146,6 +232,7 @@ export const onDeleteSpee = /* GraphQL */ `
         }
         nextToken
       }
+      charityID
       createdAt
       updatedAt
     }

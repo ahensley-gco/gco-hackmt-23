@@ -6,17 +6,24 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { Button, Flex, Grid } from "@aws-amplify/ui-react";
+import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { fetchByPath, validateField } from "./utils";
 export default function CreateSponsorXref(props) {
-  const { onSubmit, onValidate, onChange, overrides, ...rest } = props;
-  const initialValues = {};
+  const { onSubmit, onCancel, onValidate, onChange, overrides, ...rest } =
+    props;
+  const initialValues = {
+    Field0: "",
+  };
+  const [Field0, setField0] = React.useState(initialValues.Field0);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
+    setField0(initialValues.Field0);
     setErrors({});
   };
-  const validations = {};
+  const validations = {
+    Field0: [],
+  };
   const runValidationTasks = async (
     fieldName,
     currentValue,
@@ -41,7 +48,9 @@ export default function CreateSponsorXref(props) {
       padding="20px"
       onSubmit={async (event) => {
         event.preventDefault();
-        const modelFields = {};
+        const modelFields = {
+          Field0,
+        };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
             if (Array.isArray(modelFields[fieldName])) {
@@ -66,6 +75,30 @@ export default function CreateSponsorXref(props) {
       {...getOverrideProps(overrides, "CreateSponsorXref")}
       {...rest}
     >
+      <TextField
+        label="Label"
+        type="number"
+        step="any"
+        value={Field0}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              Field0: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.Field0 ?? value;
+          }
+          if (errors.Field0?.hasError) {
+            runValidationTasks("Field0", value);
+          }
+          setField0(value);
+        }}
+        onBlur={() => runValidationTasks("Field0", Field0)}
+        errorMessage={errors.Field0?.errorMessage}
+        hasError={errors.Field0?.hasError}
+        {...getOverrideProps(overrides, "Field0")}
+      ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}
@@ -83,6 +116,14 @@ export default function CreateSponsorXref(props) {
           gap="15px"
           {...getOverrideProps(overrides, "RightAlignCTASubFlex")}
         >
+          <Button
+            children="Cancel"
+            type="button"
+            onClick={() => {
+              onCancel && onCancel();
+            }}
+            {...getOverrideProps(overrides, "CancelButton")}
+          ></Button>
           <Button
             children="Submit"
             type="submit"

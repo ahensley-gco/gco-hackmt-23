@@ -1,12 +1,22 @@
-type Note @model @auth(rules: [ { allow: public } ] ){
+type Charity @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  description: String
+  spee_id: [Spee] @hasMany(indexName: "byCharity", fields: ["id"])
+  charity_user: String!
+  charity_date: AWSDate
+}
+
+type Note @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
   description: String
   image: String
-  spee_id: ID! @index(name: "bySpee", sortKeyFields: ["name"]) 
+  spee_id: ID! @index(name: "bySpee", sortKeyFields: ["name"])
+  note_date_time: AWSDateTime!
 }
 
-type Spee @model @auth(rules: [ { allow: public } ] ){
+type Spee @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
   bio: String
@@ -14,13 +24,14 @@ type Spee @model @auth(rules: [ { allow: public } ] ){
   update_user: String
   notes: [Note] @hasMany(indexName: "bySpee", fields: ["id"])
   user_spee_xrefs: [UserSpeeXref] @hasMany(indexName: "bySpee", fields: ["id"])
+  charityID: ID! @index(name: "byCharity")
 }
 
-type UserSpeeXref @model @auth(rules: [ { allow: public } ] ){
+type UserSpeeXref @model @auth(rules: [{allow: public}]) {
   id: ID!
   spee_id: ID! @index(name: "bySpee", sortKeyFields: ["sponsor_user"])
   sponsor_date: AWSDate
   sponsor_user: String!
   created_by: String
 }
-
+ 

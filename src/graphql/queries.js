@@ -1,6 +1,55 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getCharity = /* GraphQL */ `
+  query GetCharity($id: ID!) {
+    getCharity(id: $id) {
+      id
+      name
+      description
+      spee_id {
+        items {
+          id
+          name
+          bio
+          age
+          update_user
+          charityID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      charity_user
+      charity_date
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listCharities = /* GraphQL */ `
+  query ListCharities(
+    $filter: ModelCharityFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCharities(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        description
+        spee_id {
+          nextToken
+        }
+        charity_user
+        charity_date
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getNote = /* GraphQL */ `
   query GetNote($id: ID!) {
     getNote(id: $id) {
@@ -9,6 +58,7 @@ export const getNote = /* GraphQL */ `
       description
       image
       spee_id
+      note_date_time
       createdAt
       updatedAt
     }
@@ -27,6 +77,38 @@ export const listNotes = /* GraphQL */ `
         description
         image
         spee_id
+        note_date_time
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const notesBySpee_idAndName = /* GraphQL */ `
+  query NotesBySpee_idAndName(
+    $spee_id: ID!
+    $name: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelNoteFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    notesBySpee_idAndName(
+      spee_id: $spee_id
+      name: $name
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        name
+        description
+        image
+        spee_id
+        note_date_time
         createdAt
         updatedAt
       }
@@ -49,6 +131,7 @@ export const getSpee = /* GraphQL */ `
           description
           image
           spee_id
+          note_date_time
           createdAt
           updatedAt
         }
@@ -66,6 +149,7 @@ export const getSpee = /* GraphQL */ `
         }
         nextToken
       }
+      charityID
       createdAt
       updatedAt
     }
@@ -90,6 +174,42 @@ export const listSpees = /* GraphQL */ `
         user_spee_xrefs {
           nextToken
         }
+        charityID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const speesByCharityID = /* GraphQL */ `
+  query SpeesByCharityID(
+    $charityID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelSpeeFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    speesByCharityID(
+      charityID: $charityID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        name
+        bio
+        age
+        update_user
+        notes {
+          nextToken
+        }
+        user_spee_xrefs {
+          nextToken
+        }
+        charityID
         createdAt
         updatedAt
       }
@@ -123,36 +243,6 @@ export const listUserSpeeXrefs = /* GraphQL */ `
         sponsor_date
         sponsor_user
         created_by
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const notesBySpee_idAndName = /* GraphQL */ `
-  query NotesBySpee_idAndName(
-    $spee_id: ID!
-    $name: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelNoteFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    notesBySpee_idAndName(
-      spee_id: $spee_id
-      name: $name
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        name
-        description
-        image
-        spee_id
         createdAt
         updatedAt
       }
