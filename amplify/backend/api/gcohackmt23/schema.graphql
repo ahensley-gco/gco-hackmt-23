@@ -22,16 +22,17 @@ type Spee @model @auth(rules: [{allow: public}]) {
   bio: String
   age: Int
   update_user: String
-  notes: [Note] @hasMany(indexName: "bySpee", fields: ["id"])
-  user_spee_xrefs: [UserSpeeXref] @hasMany(indexName: "bySpee", fields: ["id"])
-  charityID: ID! @index(name: "byCharity")
+  notes: [UserSpeeXref] @hasMany(indexName: "bySpee", fields: ["id"])
+  user_spee_xrefs: [UserSpeeXref] @manyToMany(relationName: "SpeeUserSpeeXref")
+  charityID: ID! @index(name: "byCharity",sortKeyFields:["name"])
 }
 
 type UserSpeeXref @model @auth(rules: [{allow: public}]) {
   id: ID!
-  spee_id: ID! @index(name: "bySpee", sortKeyFields: ["sponsor_user"])
+  spee_id: ID! @index(name: "bySpee", sortKeyFields:["sponsor_user"])
   sponsor_date: AWSDate
   sponsor_user: String!
   created_by: String
+  spees: [Spee] @manyToMany(relationName: "SpeeUserSpeeXref")
 }
  
