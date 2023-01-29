@@ -31,6 +31,8 @@ import {
 import userEvent from "@testing-library/user-event";
 import UserGroup from "./components/usergroup";
 import AdminMenu from "./components/adminmenu";
+import HomePage from "./components/HomePage.js";
+import { Outlet } from "react-router-dom";
 const App = ({ signOut, user }) => {
   const [notes, setNotes] = useState([]);
   const [spees, setSpees] = useState([]);
@@ -331,7 +333,11 @@ const App = ({ signOut, user }) => {
     //   </View>
     //   <Button onClick={signOut}>Sign Out</Button>
     // </View>
-  <Charity/>
+    <>
+      {/* <Charity/> */}
+      {/* <HomePage/> */}
+      <Outlet/>
+    </>
     );
 };
 
