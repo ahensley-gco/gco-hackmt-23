@@ -20,19 +20,19 @@ function Charity() {
     return (
       <div>
         <h1>Hello Charity</h1>
-        <wrapper className="charity">
-          <row className="row">
+        <div className="charity">
+          <div className="row">
             <div className='btn btnDonor' onClick = {() => navigate('/charity/create_post')}>Create Post</div>
             <div className='btn btnCh' onClick = {() => navigate('/charity/create_sponsoree')}>Create Sponsoree</div>
             <div className='btn btnDonor' onClick = {() => navigate('/charity/create_donor')}>Create Donor</div>
-          </row> 
-          <row className="row"> 
+          </div> 
+          <div className="row"> 
             <div className='btn btnCh' onClick = {() => navigate('/charity/delete_sponsoree')}>Delete Sponsoree</div>
             <div className='btn btnDonor' onClick = {() => navigate('/charity/delete_donor')}>Delete Donor</div>
-          </row>
-          <row className="row">
-          </row>
-        </wrapper>
+          </div>
+          <div className="row">
+          </div>
+        </div>
        {/* {createSpOn && <Backdrop/>}*/}
         {createSpOn && <Backdroptest/>}
         {updateSpOn && <UpdateSp/>}

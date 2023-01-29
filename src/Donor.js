@@ -19,7 +19,7 @@ function Donor() {
     return (
       <div>
         <h1>Hello Donor</h1>
-        <wrapper className="donor">
+        <div className="donor">
           <ul>See how your Sponsoree are doing
             <li>Kate</li>
             <li>Olga</li>
@@ -27,7 +27,7 @@ function Donor() {
 
           </ul>
 
-        </wrapper>
+        </div>
        {/* {createSpOn && <Backdrop/>}*/}
         {createSpOn && <Backdroptest/>}
         {updateSpOn && <UpdateSp/>}

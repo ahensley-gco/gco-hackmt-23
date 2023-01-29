@@ -3,11 +3,17 @@ import '../css/form.css';
 import emailjs from '@emailjs/browser';
 import { Button } from '@aws-amplify/ui-react';
 import { useNavigate } from 'react-router';
+function confirmSubmit(){
+    var response = window.confirm("Are you sure you want to delete this donor?");
+    if (response){
+        alert("Sponsoree deleted successfully!.");
+    }
+}
 function DeleteSp(props) {
     const form=useRef();
     const navigate = useNavigate();
     const onSubmit = () => {
-        alert("Sponsoree deleted successfully!");
+        confirmSubmit();
         navigate(-1);
     }
 

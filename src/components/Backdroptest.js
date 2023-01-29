@@ -10,8 +10,10 @@ import {
   } from "../graphql/mutations";
   import { listSpees } from "../graphql/queries";
   import { Amplify } from "aws-amplify";
+import { useNavigate } from "react-router";
 function Backdroptest(props) {
-  const [spees, setSpees] = useState([]);  
+  const [spees, setSpees] = useState([]); 
+  const navigate = useNavigate(); 
 
   async function createSpee(event) {
         event.preventDefault();
@@ -31,6 +33,7 @@ function Backdroptest(props) {
         console.log("Mutation Complete now Fetch Results to confirm");
         fetchSpees();
         event.target.reset();
+        navigate(-1);
       }
 
       async function fetchSpees() {
