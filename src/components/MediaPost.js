@@ -28,7 +28,7 @@ const MediaPost = ({props: {name, image, description, index, timestamp, title}})
       padding={'30px'}
     >
       <Card>
-        <Flex direction="row" alignItems="flex-start">
+        <Flex direction="row" alignItems="flex-start" maxWidth="1200px">
           <Image
             alt={description}
             src={require(`../images/${index}.jpeg`)}
