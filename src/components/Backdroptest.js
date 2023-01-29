@@ -1,5 +1,5 @@
 import { API, Storage } from "aws-amplify";
-
+import '../css/form.css';
 import React, { useState, useEffect } from "react";
 import {
     createNote as createNoteMutation,
@@ -41,6 +41,7 @@ function Backdroptest(props) {
       
     return (
         <div className="backdroptest" >
+          <a class = "back" href="javascript: history.go(-1)">Go Back</a>
             <h3>Create Sponsoree</h3>
             
                 <form as="form"  onSubmit={createSpee}>
