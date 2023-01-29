@@ -23,4 +23,4 @@ const media = [
         description: "Watch Doc do this sick backflip",
         timestamp: "12/02/22 1:12:03"
     }
-}
+]
