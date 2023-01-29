@@ -6,7 +6,7 @@ import Charity from "./Charity.js";
 import React, { useState, useEffect } from "react";
 import Backdroptest from './components/Backdroptest.js';
 
-import UpdateSp from './components/UpdateSp.js';
+import UpdateSp from './components/DeleteSp.js';
 import "./App.css";
 import "@aws-amplify/ui-react/styles.css";
 import { API, Storage } from "aws-amplify";
