@@ -32,7 +32,7 @@ const DonorPage = () => {
         (sponsorees && media) ?
         <>
         <Flex direction="column" padding="relative.large" paddingBottom="xs">
-        <h1>Hi, {donorName}</h1>
+        <h1>Hi, Jack</h1>
         <h3>Wanna know how your sponsorees are doing? Here they are!</h3>
         <ul>
         {sponsorees.map(({name}) => <li key={name}><Text>{name}</Text></li>)}

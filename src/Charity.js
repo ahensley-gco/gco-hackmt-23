@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import Backdrop from './components/DeleteSp.js';
 import Backdroptest from './components/Backdroptest.js';
-import CreateSp from './CreateSp.js';
+import CreateSp from './components/UpdateSp';
 import UpdateSp from './components/DeleteSp.js';
 import { useNavigate } from 'react-router-dom';
 
@@ -23,6 +23,7 @@ function Charity() {
         <div className="charity">
           <div className="row">
             <div className='btn btnDonor' onClick = {() => navigate('/charity/create_post')}>Create Post</div>
+            <div className='btn btnDonor' onClick = {() => navigate('/charity/update_sponsor')}>Update Sponsor</div>
             <div className='btn btnCh' onClick = {() => navigate('/charity/create_sponsoree')}>Create Sponsoree</div>
             <div className='btn btnDonor' onClick = {() => navigate('/charity/create_donor')}>Create Donor</div>
           </div> 

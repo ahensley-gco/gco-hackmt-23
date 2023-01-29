@@ -11,6 +11,7 @@ import SponsoreePage from "./components/SponsoreePage";
 import DeleteSp from "./components/DeleteSp";
 import DeleteDonor from "./components/DeleteDonor";
 import CreateDonor from "./components/CreateDonor";
+import UpdateSp from "./components/UpdateSp";
 
 
 export const router = createBrowserRouter([
@@ -36,7 +37,9 @@ export const router = createBrowserRouter([
             {path: "delete_donor",
             element: <DeleteDonor/>},
             {path: "create_donor",
-            element: <CreateDonor/>}
+            element: <CreateDonor/>},
+            {path: "update_sponsor",
+            element: <UpdateSp/>}
     ]}
     ]
 }
