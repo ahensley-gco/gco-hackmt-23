@@ -24,7 +24,7 @@ type Spee @model @auth(rules: [{allow: public}]) {
   update_user: String
   notes: [UserSpeeXref] @hasMany(indexName: "bySpee", fields: ["id"])
   user_spee_xrefs: [UserSpeeXref] @manyToMany(relationName: "SpeeUserSpeeXref")
-  charityID: ID! @index(name: "byCharity")
+  charityID: ID!
 }
 
 type UserSpeeXref @model @auth(rules: [{allow: public}]) {

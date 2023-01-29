@@ -1,4 +1,6 @@
 import { API, Storage } from "aws-amplify";
+
+import React, { useState, useEffect } from "react";
 import {
     createNote as createNoteMutation,
     deleteNote as deleteNoteMutation,
@@ -6,24 +8,37 @@ import {
     deleteSpee as deleteSpeeMutation,
     createUserSpeeXref as createUserSpeeXrefMutation,
   } from "../graphql/mutations";
+  import { listSpees } from "../graphql/queries";
+  import { Amplify } from "aws-amplify";
 function Backdroptest(props) {
-    async function createSpee(event) {
+  const [spees, setSpees] = useState([]);  
+
+  async function createSpee(event) {
         event.preventDefault();
         const form = new FormData(event.target);
-        const data = {
-            ID: '1',
+        const data = { 
           name: form.get("spee_name"),
           bio: form.get("spee_bio"),
-          age: form.get("spee_age"),
-          //update_user: user.username,
+          age: form.get("spee_age"), 
+          update_user: 'aaa',
+          charityID: 'bbb',
         };
+        console.log("Data For API CALL:", data);
         await API.graphql({
           query: createSpeeMutation,
-          variables: { input: data },
+          variables: { input: data }
         });
-       // fetchSpees();
+        console.log("Mutation Complete now Fetch Results to confirm");
+        fetchSpees();
         event.target.reset();
       }
+
+      async function fetchSpees() {
+        const apiData = await API.graphql({ query: listSpees });
+        const speesFromAPI = apiData.data.listSpees.items.filter((spee) => spee.update_user === 'aaa');
+        console.log("Spees Fetch:", speesFromAPI);
+      }
+      
     return (
         <div className="backdroptest" >
             <h3>Create Sponsoree</h3>
