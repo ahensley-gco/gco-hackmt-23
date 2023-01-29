@@ -127,11 +127,10 @@ export const getSpee = /* GraphQL */ `
       notes {
         items {
           id
-          name
-          description
-          image
           spee_id
-          note_date_time
+          sponsor_date
+          sponsor_user
+          created_by
           createdAt
           updatedAt
         }
@@ -140,10 +139,8 @@ export const getSpee = /* GraphQL */ `
       user_spee_xrefs {
         items {
           id
-          spee_id
-          sponsor_date
-          sponsor_user
-          created_by
+          speeId
+          userSpeeXrefId
           createdAt
           updatedAt
         }
@@ -225,6 +222,16 @@ export const getUserSpeeXref = /* GraphQL */ `
       sponsor_date
       sponsor_user
       created_by
+      spees {
+        items {
+          id
+          speeId
+          userSpeeXrefId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -243,6 +250,9 @@ export const listUserSpeeXrefs = /* GraphQL */ `
         sponsor_date
         sponsor_user
         created_by
+        spees {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -250,18 +260,16 @@ export const listUserSpeeXrefs = /* GraphQL */ `
     }
   }
 `;
-export const userSpeeXrefsBySpee_idAndSponsor_user = /* GraphQL */ `
-  query UserSpeeXrefsBySpee_idAndSponsor_user(
+export const userSpeeXrefsBySpee_id = /* GraphQL */ `
+  query UserSpeeXrefsBySpee_id(
     $spee_id: ID!
-    $sponsor_user: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelUserSpeeXrefFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    userSpeeXrefsBySpee_idAndSponsor_user(
+    userSpeeXrefsBySpee_id(
       spee_id: $spee_id
-      sponsor_user: $sponsor_user
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -273,6 +281,179 @@ export const userSpeeXrefsBySpee_idAndSponsor_user = /* GraphQL */ `
         sponsor_date
         sponsor_user
         created_by
+        spees {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getSpeeUserSpeeXref = /* GraphQL */ `
+  query GetSpeeUserSpeeXref($id: ID!) {
+    getSpeeUserSpeeXref(id: $id) {
+      id
+      speeId
+      userSpeeXrefId
+      spee {
+        id
+        name
+        bio
+        age
+        update_user
+        notes {
+          nextToken
+        }
+        user_spee_xrefs {
+          nextToken
+        }
+        charityID
+        createdAt
+        updatedAt
+      }
+      userSpeeXref {
+        id
+        spee_id
+        sponsor_date
+        sponsor_user
+        created_by
+        spees {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listSpeeUserSpeeXrefs = /* GraphQL */ `
+  query ListSpeeUserSpeeXrefs(
+    $filter: ModelSpeeUserSpeeXrefFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listSpeeUserSpeeXrefs(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        speeId
+        userSpeeXrefId
+        spee {
+          id
+          name
+          bio
+          age
+          update_user
+          charityID
+          createdAt
+          updatedAt
+        }
+        userSpeeXref {
+          id
+          spee_id
+          sponsor_date
+          sponsor_user
+          created_by
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const speeUserSpeeXrefsBySpeeId = /* GraphQL */ `
+  query SpeeUserSpeeXrefsBySpeeId(
+    $speeId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelSpeeUserSpeeXrefFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    speeUserSpeeXrefsBySpeeId(
+      speeId: $speeId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        speeId
+        userSpeeXrefId
+        spee {
+          id
+          name
+          bio
+          age
+          update_user
+          charityID
+          createdAt
+          updatedAt
+        }
+        userSpeeXref {
+          id
+          spee_id
+          sponsor_date
+          sponsor_user
+          created_by
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const speeUserSpeeXrefsByUserSpeeXrefId = /* GraphQL */ `
+  query SpeeUserSpeeXrefsByUserSpeeXrefId(
+    $userSpeeXrefId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelSpeeUserSpeeXrefFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    speeUserSpeeXrefsByUserSpeeXrefId(
+      userSpeeXrefId: $userSpeeXrefId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        speeId
+        userSpeeXrefId
+        spee {
+          id
+          name
+          bio
+          age
+          update_user
+          charityID
+          createdAt
+          updatedAt
+        }
+        userSpeeXref {
+          id
+          spee_id
+          sponsor_date
+          sponsor_user
+          created_by
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
       }
