@@ -2,7 +2,11 @@
 //spee = sponsoree as managed by update user
 //spee2 = sponsoree to be viewed by sponsor
 //note = updates for the sponsor to see
+import Charity from "./Charity.js";
 import React, { useState, useEffect } from "react";
+import Backdroptest from './components/Backdroptest.js';
+
+import UpdateSp from './components/UpdateSp.js';
 import "./App.css";
 import "@aws-amplify/ui-react/styles.css";
 import { API, Storage } from "aws-amplify";
@@ -27,7 +31,6 @@ import {
 import userEvent from "@testing-library/user-event";
 import UserGroup from "./components/usergroup";
 import AdminMenu from "./components/adminmenu";
-
 const App = ({ signOut, user }) => {
   const [notes, setNotes] = useState([]);
   const [spees, setSpees] = useState([]);
@@ -140,195 +143,196 @@ const App = ({ signOut, user }) => {
   //END ABH TESTING
 
   return (
-    <View className="App">
-      <Heading level={1}>Sponsors In The Loop </Heading>
-      <Heading level={3}>Hi {user.username}</Heading>
-      <UserGroup />
-      <AdminMenu />
+    // <View className="App">
+    //   <Heading level={1}>Sponsors In The Loop </Heading>
+    //   <Heading level={3}>Hi {user.username}</Heading>
+    //   <UserGroup />
+    //   <AdminMenu />
       
       
 
-      <View as="form" margin="3rem 0" onSubmit={createSpee}>
-        <Flex direction="row" justifyContent="center">
-          <TextField
-            name="spee_name"
-            placeholder="Sponsoree Name"
-            label="Sponsoree Name"
-            labelHidden
-            variation="quiet"
-            required
-          />
-          <TextField
-            name="spee_bio"
-            placeholder="Sponsoree Bio"
-            label="Sponsoree Bio"
-            labelHidden
-            variation="quiet"
-            required
-          />
-          <TextField
-            name="spee_age"
-            placeholder="Sponsoree Age"
-            label="Sponsoree Age"
-            labelHidden
-            variation="quiet"
-            required
-          />
-          <Button type="submit" variation="primary">
-            Create Sponsoree
-          </Button>
-        </Flex>
-      </View>
+    //   <View as="form" margin="3rem 0" onSubmit={createSpee}>
+    //     <Flex direction="row" justifyContent="center">
+    //       <TextField
+    //         name="spee_name"
+    //         placeholder="Sponsoree Name"
+    //         label="Sponsoree Name"
+    //         labelHidden
+    //         variation="quiet"
+    //         required
+    //       />
+    //       <TextField
+    //         name="spee_bio"
+    //         placeholder="Sponsoree Bio"
+    //         label="Sponsoree Bio"
+    //         labelHidden
+    //         variation="quiet"
+    //         required
+    //       />
+    //       <TextField
+    //         name="spee_age"
+    //         placeholder="Sponsoree Age"
+    //         label="Sponsoree Age"
+    //         labelHidden
+    //         variation="quiet"
+    //         required
+    //       />
+    //       <Button type="submit" variation="primary">
+    //         Create Sponsoree
+    //       </Button>
+    //     </Flex>
+    //   </View>
 
-      <Heading level={3}>Your Sponsorees</Heading>
-      <View margin="3rem 0">
-        {spees.map((spee) => (
-          <Flex
-            key={spee.id || spee.name}
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Text as="strong" fontWeight={700}>
-              {spee.name} age {spee.age}
-            </Text>
-            <Text as="span">{spee.bio}</Text>
-            <Text fontStyle={'italic'}>managed by {spee.update_user}</Text>
-          </Flex>
-        ))}
-      </View>
+    //   <Heading level={3}>Your Sponsorees</Heading>
+    //   <View margin="3rem 0">
+    //     {spees.map((spee) => (
+    //       <Flex
+    //         key={spee.id || spee.name}
+    //         direction="row"
+    //         justifyContent="center"
+    //         alignItems="center"
+    //       >
+    //         <Text as="strong" fontWeight={700}>
+    //           {spee.name} age {spee.age}
+    //         </Text>
+    //         <Text as="span">{spee.bio}</Text>
+    //         <Text fontStyle={'italic'}>managed by {spee.update_user}</Text>
+    //       </Flex>
+    //     ))}
+    //   </View>
 
-      <Heading level={3}>Sponsorees You Update</Heading>
-      <View margin="3rem 0">
-        {spees.map((spee) => (
-          <Flex
-            key={spee.id || spee.name}
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            wrap={"wrap"}
-          >
-            <Text as="strong" fontWeight={700}>
-              {spee.name} age {spee.age}
-            </Text>
-            <Text as="span">{spee.bio}</Text>
-            <Text fontStyle={'italic'}>managed by {spee.update_user}</Text>
-            <Button variation="link" onClick={() => deleteSpee(spee)}>
-              Delete Sponsoree
-            </Button>
-            <Button variation="link" onClick={() => setDisplayViewSpons(!displayViewSpons)}>
-              View Sponsors
-            </Button>
-              {displayViewSpons ?
-                (
-                  <Text>View Sponsors er</Text>
-                ) : null
-              }
-            <Button variation="link" onClick={() => setDisplayCreateSponsForm(!displayCreateSponsForm)}>
-              Add Sponsor
-            </Button>
-              {displayCreateSponsForm ?
-                (
+    //   <Heading level={3}>Sponsorees You Update</Heading>
+    //   <View margin="3rem 0">
+    //     {spees.map((spee) => (
+    //       <Flex
+    //         key={spee.id || spee.name}
+    //         direction="row"
+    //         justifyContent="center"
+    //         alignItems="center"
+    //         wrap={"wrap"}
+    //       >
+    //         <Text as="strong" fontWeight={700}>
+    //           {spee.name} age {spee.age}
+    //         </Text>
+    //         <Text as="span">{spee.bio}</Text>
+    //         <Text fontStyle={'italic'}>managed by {spee.update_user}</Text>
+    //         <Button variation="link" onClick={() => deleteSpee(spee)}>
+    //           Delete Sponsoree
+    //         </Button>
+    //         <Button variation="link" onClick={() => setDisplayViewSpons(!displayViewSpons)}>
+    //           View Sponsors
+    //         </Button>
+    //           {displayViewSpons ?
+    //             (
+    //               <Text>View Sponsors er</Text>
+    //             ) : null
+    //           }
+    //         <Button variation="link" onClick={() => setDisplayCreateSponsForm(!displayCreateSponsForm)}>
+    //           Add Sponsor
+    //         </Button>
+    //           {displayCreateSponsForm ?
+    //             (
 
-                  <View as="form" margin="3rem 0" onSubmit={createUserSpeeXref}>
-                            <Flex direction="row" justifyContent="center">
-                            <TextField
-                                name="spee_id"
-                                defaultValue={spee.id}
-                                label="Sponsoree ID"
-                                labelHidden
-                                variation="quiet"
-                                required
-                                type="hidden"
-                              />
-                              <TextField
-                                name="sponsor_user"
-                                placeholder="user.name"
-                                label="Sponsor Username"
-                                labelHidden
-                                variation="quiet"
-                                required
-                              />
-                              <Button type="submit" variation="primary">
-                                Add
-                              </Button>
-                            </Flex>
-                  </View>
-                ) : null
-              }
+    //               <View as="form" margin="3rem 0" onSubmit={createUserSpeeXref}>
+    //                         <Flex direction="row" justifyContent="center">
+    //                         <TextField
+    //                             name="spee_id"
+    //                             defaultValue={spee.id}
+    //                             label="Sponsoree ID"
+    //                             labelHidden
+    //                             variation="quiet"
+    //                             required
+    //                             type="hidden"
+    //                           />
+    //                           <TextField
+    //                             name="sponsor_user"
+    //                             placeholder="user.name"
+    //                             label="Sponsor Username"
+    //                             labelHidden
+    //                             variation="quiet"
+    //                             required
+    //                           />
+    //                           <Button type="submit" variation="primary">
+    //                             Add
+    //                           </Button>
+    //                         </Flex>
+    //               </View>
+    //             ) : null
+    //           }
       
-      <View as="form" margin="3rem 0" onSubmit={createNote}>
-        <Flex direction="row" justifyContent="center">
-        <TextField
-            name="spee_id"
-            defaultValue={spee.id}
-            label="Sponsoree ID"
-            labelHidden
-            variation="quiet"
-            required
-            type="hidden"
-          />
-          <TextField
-            name="name"
-            placeholder="Update Name"
-            label="Update Name"
-            labelHidden
-            variation="quiet"
-            required
-          />
-          <TextField
-            name="description"
-            placeholder="Update Description"
-            label="Update Description"
-            labelHidden
-            variation="quiet"
-            required
-          />
-          <View
-            name="image"
-            as="input"
-            type="file"
-            style={{ alignSelf: "end" }}
-          />
-          <Button type="submit" variation="primary">
-            Create Update
-          </Button>
-        </Flex>
-      </View>
+    //   <View as="form" margin="3rem 0" onSubmit={createNote}>
+    //     <Flex direction="row" justifyContent="center">
+    //     <TextField
+    //         name="spee_id"
+    //         defaultValue={spee.id}
+    //         label="Sponsoree ID"
+    //         labelHidden
+    //         variation="quiet"
+    //         required
+    //         type="hidden"
+    //       />
+    //       <TextField
+    //         name="name"
+    //         placeholder="Update Name"
+    //         label="Update Name"
+    //         labelHidden
+    //         variation="quiet"
+    //         required
+    //       />
+    //       <TextField
+    //         name="description"
+    //         placeholder="Update Description"
+    //         label="Update Description"
+    //         labelHidden
+    //         variation="quiet"
+    //         required
+    //       />
+    //       <View
+    //         name="image"
+    //         as="input"
+    //         type="file"
+    //         style={{ alignSelf: "end" }}
+    //       />
+    //       <Button type="submit" variation="primary">
+    //         Create Update
+    //       </Button>
+    //     </Flex>
+    //   </View>
 
-          </Flex>
-        ))}
-      </View>
+    //       </Flex>
+    //     ))}
+    //   </View>
 
-      <Heading level={2}>Current Updates</Heading>
-      <View margin="3rem 0">
-        {notes.map((note) => (
-          <Flex
-            key={note.id || note.name}
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Text as="strong" fontWeight={700}>
-              {note.name}
-            </Text>
-            <Text as="span">{note.description}</Text>
-            {note.image && (
-              <Image
-                src={note.image}
-                alt={`visual aid for ${note.name}`}
-                style={{ width: 400 }}
-              />
-            )}
-            <Button variation="link" onClick={() => deleteNote(note)}>
-              Delete update
-            </Button>
-          </Flex>
-        ))}
-      </View>
-      <Button onClick={signOut}>Sign Out</Button>
-    </View>
-  );
+    //   <Heading level={2}>Current Updates</Heading>
+    //   <View margin="3rem 0">
+    //     {notes.map((note) => (
+    //       <Flex
+    //         key={note.id || note.name}
+    //         direction="row"
+    //         justifyContent="center"
+    //         alignItems="center"
+    //       >
+    //         <Text as="strong" fontWeight={700}>
+    //           {note.name}
+    //         </Text>
+    //         <Text as="span">{note.description}</Text>
+    //         {note.image && (
+    //           <Image
+    //             src={note.image}
+    //             alt={`visual aid for ${note.name}`}
+    //             style={{ width: 400 }}
+    //           />
+    //         )}
+    //         <Button variation="link" onClick={() => deleteNote(note)}>
+    //           Delete update
+    //         </Button>
+    //       </Flex>
+    //     ))}
+    //   </View>
+    //   <Button onClick={signOut}>Sign Out</Button>
+    // </View>
+  <Charity/>
+    );
 };
 
 export default withAuthenticator(App);
