@@ -4,6 +4,7 @@ import {
 import App from "./App";
 import DonorPage from "./components/DonorPage";
 import HomePage from "./components/HomePage";
+import SponsoreePage from "./components/SponsoreePage";
 
 export const router = createBrowserRouter([
     {path: "/",
@@ -12,7 +13,10 @@ export const router = createBrowserRouter([
         {path: "",
          element: <HomePage/>},
          {path: "/donor",
-        element: <DonorPage/>}
+        element: <DonorPage/>},
+        {path: "/sponsoree",
+        element: <SponsoreePage/>
+    }
     ]
 }
 ])
