@@ -132,11 +132,10 @@ export const onCreateSpee = /* GraphQL */ `
       notes {
         items {
           id
-          name
-          description
-          image
           spee_id
-          note_date_time
+          sponsor_date
+          sponsor_user
+          created_by
           createdAt
           updatedAt
         }
@@ -145,10 +144,8 @@ export const onCreateSpee = /* GraphQL */ `
       user_spee_xrefs {
         items {
           id
-          spee_id
-          sponsor_date
-          sponsor_user
-          created_by
+          speeId
+          userSpeeXrefId
           createdAt
           updatedAt
         }
@@ -171,11 +168,10 @@ export const onUpdateSpee = /* GraphQL */ `
       notes {
         items {
           id
-          name
-          description
-          image
           spee_id
-          note_date_time
+          sponsor_date
+          sponsor_user
+          created_by
           createdAt
           updatedAt
         }
@@ -184,10 +180,8 @@ export const onUpdateSpee = /* GraphQL */ `
       user_spee_xrefs {
         items {
           id
-          spee_id
-          sponsor_date
-          sponsor_user
-          created_by
+          speeId
+          userSpeeXrefId
           createdAt
           updatedAt
         }
@@ -210,11 +204,10 @@ export const onDeleteSpee = /* GraphQL */ `
       notes {
         items {
           id
-          name
-          description
-          image
           spee_id
-          note_date_time
+          sponsor_date
+          sponsor_user
+          created_by
           createdAt
           updatedAt
         }
@@ -223,10 +216,8 @@ export const onDeleteSpee = /* GraphQL */ `
       user_spee_xrefs {
         items {
           id
-          spee_id
-          sponsor_date
-          sponsor_user
-          created_by
+          speeId
+          userSpeeXrefId
           createdAt
           updatedAt
         }
@@ -248,6 +239,16 @@ export const onCreateUserSpeeXref = /* GraphQL */ `
       sponsor_date
       sponsor_user
       created_by
+      spees {
+        items {
+          id
+          speeId
+          userSpeeXrefId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -263,6 +264,16 @@ export const onUpdateUserSpeeXref = /* GraphQL */ `
       sponsor_date
       sponsor_user
       created_by
+      spees {
+        items {
+          id
+          speeId
+          userSpeeXrefId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -278,6 +289,139 @@ export const onDeleteUserSpeeXref = /* GraphQL */ `
       sponsor_date
       sponsor_user
       created_by
+      spees {
+        items {
+          id
+          speeId
+          userSpeeXrefId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateSpeeUserSpeeXref = /* GraphQL */ `
+  subscription OnCreateSpeeUserSpeeXref(
+    $filter: ModelSubscriptionSpeeUserSpeeXrefFilterInput
+  ) {
+    onCreateSpeeUserSpeeXref(filter: $filter) {
+      id
+      speeId
+      userSpeeXrefId
+      spee {
+        id
+        name
+        bio
+        age
+        update_user
+        notes {
+          nextToken
+        }
+        user_spee_xrefs {
+          nextToken
+        }
+        charityID
+        createdAt
+        updatedAt
+      }
+      userSpeeXref {
+        id
+        spee_id
+        sponsor_date
+        sponsor_user
+        created_by
+        spees {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateSpeeUserSpeeXref = /* GraphQL */ `
+  subscription OnUpdateSpeeUserSpeeXref(
+    $filter: ModelSubscriptionSpeeUserSpeeXrefFilterInput
+  ) {
+    onUpdateSpeeUserSpeeXref(filter: $filter) {
+      id
+      speeId
+      userSpeeXrefId
+      spee {
+        id
+        name
+        bio
+        age
+        update_user
+        notes {
+          nextToken
+        }
+        user_spee_xrefs {
+          nextToken
+        }
+        charityID
+        createdAt
+        updatedAt
+      }
+      userSpeeXref {
+        id
+        spee_id
+        sponsor_date
+        sponsor_user
+        created_by
+        spees {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteSpeeUserSpeeXref = /* GraphQL */ `
+  subscription OnDeleteSpeeUserSpeeXref(
+    $filter: ModelSubscriptionSpeeUserSpeeXrefFilterInput
+  ) {
+    onDeleteSpeeUserSpeeXref(filter: $filter) {
+      id
+      speeId
+      userSpeeXrefId
+      spee {
+        id
+        name
+        bio
+        age
+        update_user
+        notes {
+          nextToken
+        }
+        user_spee_xrefs {
+          nextToken
+        }
+        charityID
+        createdAt
+        updatedAt
+      }
+      userSpeeXref {
+        id
+        spee_id
+        sponsor_date
+        sponsor_user
+        created_by
+        spees {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
