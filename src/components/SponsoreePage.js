@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 const SponsoreePage = () => {
     const [sponsoreeInfo, setSponsoreeInfo] = useState({});
 
-    useEffect(() => {}, []);
+    // useEffect(() => {}, []);
 
-    // return ();
+    return ('This is the sponsoree page');
 }
+
+export default SponsoreePage;

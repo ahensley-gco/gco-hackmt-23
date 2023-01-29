@@ -1,11 +1,14 @@
-import { Flex, Loader } from "@aws-amplify/ui-react";
+import { Flex, Link, Loader } from "@aws-amplify/ui-react";
 import { useCallback, useEffect, useState } from "react"
 import { listNotes, listSpees } from "../graphql/queries";
 import { API } from "aws-amplify";
+import { useNavigate } from "react-router-dom";
 
 
 
 const DonorPage = () => {
+    const navigate = useNavigate();
+
     const [donorName, setDonorName] = useState('');
     const [sponsorees, setSponsorees] = useState([]);
 
@@ -27,7 +30,10 @@ const DonorPage = () => {
         <>
         <div>Hi, {'donorName'}</div>
         <div>Wanna know how your sponsorees are doing? Here they are; click on their name to learn more.</div>
-        {sponsorees.map(({name}) => <div>{name}</div>)}
+        <ul>
+        {sponsorees.map(({name}) => <li><Link href="sponsoree" onClick={navigate}>{name}</Link></li>)}
+        </ul>
+        
         </> 
         : <Flex width='100vw' height="100vh" alignItems="center" justifyContent="center">
             <Loader width="100px" size="large" variation="linear"/>
