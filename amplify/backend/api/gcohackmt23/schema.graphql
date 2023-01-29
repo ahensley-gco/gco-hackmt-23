@@ -24,12 +24,12 @@ type Spee @model @auth(rules: [{allow: public}]) {
   update_user: String
   notes: [UserSpeeXref] @hasMany(indexName: "bySpee", fields: ["id"])
   user_spee_xrefs: [UserSpeeXref] @manyToMany(relationName: "SpeeUserSpeeXref")
-  charityID: ID!
+  charityID: ID! @index(name: "byCharity",sortKeyFields:["name"])
 }
 
 type UserSpeeXref @model @auth(rules: [{allow: public}]) {
   id: ID!
-  spee_id: ID! @index(name: "bySpee")
+  spee_id: ID! @index(name: "bySpee", sortKeyFields:["sponsor_user"])
   sponsor_date: AWSDate
   sponsor_user: String!
   created_by: String
