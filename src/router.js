@@ -2,9 +2,11 @@ import {
     createBrowserRouter,
   } from "react-router-dom";
 import App from "./App";
+import Charity from "./Charity";
 import DonorPage from "./components/DonorPage";
 import HomePage from "./components/HomePage";
 import SponsoreePage from "./components/SponsoreePage";
+
 
 export const router = createBrowserRouter([
     {path: "/",
@@ -15,8 +17,9 @@ export const router = createBrowserRouter([
          {path: "/donor",
         element: <DonorPage/>},
         {path: "/sponsoree",
-        element: <SponsoreePage/>
-    }
+        element: <SponsoreePage/>},
+        {path: "/charity",
+        element: <Charity/>}
     ]
 }
 ])

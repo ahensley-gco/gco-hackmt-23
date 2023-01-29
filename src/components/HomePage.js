@@ -25,7 +25,7 @@ const HomePage = () => {
         {
         <Flex width='100vw' height="100vh" alignItems="center" justifyContent="center">
             <Button variation="" height="50px" back onClick={() => navigate('donor')}>Donor</Button>
-            <Button height="50px">Sponsoree</Button>
+            <Button height="50px" onClick = {() => navigate('charity')}>Charity</Button>
         </Flex>}
         {/* {showDonorPage && <DonorPage/>} */}
         </>
